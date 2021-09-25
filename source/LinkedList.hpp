@@ -14,7 +14,6 @@ public:
     T& insert(int pos, T data);
     T& append(T data);
     T& at(int pos);
-    Node<T>& nodeAt(int pos);
 
     T& begin();
     T& end();
@@ -24,20 +23,24 @@ private:
     Node<T>* last;
 
     int size;
+
+    Node<T>& nodeAt(int pos);
 };
 
 template<class T> LinkedList<T>::LinkedList() : size(0) { }
 
 template<class T> LinkedList<T>::LinkedList(const std::initializer_list<T>& data) : size(data.size()) {
-    first = new Node<T>((int*) data.begin());
+    first = new Node<T>((T*) data.begin());
 
     Node<T>* prevNode = first;
-    for(T i : data) {
-        Node<T>* nextNode = new Node<T>(i);
+    for(long unsigned int i = 1; i < data.size(); i++) {
+        Node<T>* nextNode = new Node<T>((T*) (data.begin()+i));
         nextNode->setPrev(*prevNode);
         prevNode->setNext(*nextNode);
         prevNode = nextNode;
     }
+
+    last = prevNode;
 }
 
 template<class T> const int& LinkedList<T>::length() {
@@ -51,7 +54,7 @@ template<class T> T& LinkedList<T>::insert(int pos, T data) {
 
     Node<T>* location = &this->nodeAt(pos);
     Node<T>* newPrev = &location->getPrev();
-    Node<T>* newNode = new Node<T>(data);
+    Node<T>* newNode = new Node<T>(new int(data));
 
     newNode->setPrev(*newPrev);
     newNode->setNext(*location);
@@ -63,7 +66,8 @@ template<class T> T& LinkedList<T>::insert(int pos, T data) {
 }
 
 template<class T> T& LinkedList<T>::append(T data) {
-    Node<T>* newNode = new Node<T>(data);
+
+    Node<T>* newNode = new Node<T>(new int(data));
 
     newNode->setPrev(*last);
 
@@ -83,7 +87,8 @@ template<class T> T& LinkedList<T>::at(int pos) {
     }
 
     Node<T>* nextNode = first;
-    for(int i = 1; i < pos; i++) nextNode = &nextNode->getNext();
+    for(int i = 0; i < pos; i++) 
+        nextNode = &nextNode->getNext();
 
     return nextNode->getData();
 }
@@ -95,7 +100,7 @@ template<class T> Node<T>& LinkedList<T>::nodeAt(int pos) {
     }
 
     Node<T>* nextNode = first;
-    for(int i = 1; i < pos; i++) nextNode = &nextNode->getNext();
+    for(int i = 0; i < pos; i++) nextNode = &nextNode->getNext();
 
     return *nextNode;
 }

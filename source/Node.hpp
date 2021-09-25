@@ -4,7 +4,6 @@ template<class T> class Node
 {
 private:
     Node();
-    Node(T data);
     Node(T* data);
 
     void setNext(Node<T>& next);
@@ -23,10 +22,6 @@ private:
 };
 
 template<class T> Node<T>::Node() { }
-
-template<class T> Node<T>::Node(T data) {
-    this->data = &data;
-}
 
 template<class T> Node<T>::Node(T* data) {
     this->data = data;

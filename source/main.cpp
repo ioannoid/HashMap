@@ -4,9 +4,7 @@
 
 int main() {
     
-    LinkedList<int> list = {1, 2, 3, 4, 5};
-
-    std::cout << list.begin() << ", " << list.end() << ", " << list.length() << std::endl;
+    LinkedList<int> list = {1, 2, 3, 4, 5, 6};
 
     return 0;
 }
