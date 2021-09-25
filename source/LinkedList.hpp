@@ -1,11 +1,14 @@
 #pragma once
 
+#include <initializer_list>
+
 #include "Node.hpp"
 
 template<class T> class LinkedList 
 {
 public:
     LinkedList();
+    LinkedList(const std::initializer_list<T>& data);
 
     const int& length();
     T& insert(int pos, T data);
@@ -24,6 +27,18 @@ private:
 };
 
 template<class T> LinkedList<T>::LinkedList() : size(0) { }
+
+template<class T> LinkedList<T>::LinkedList(const std::initializer_list<T>& data) : size(data.size()) {
+    first = new Node<T>((int*) data.begin());
+
+    Node<T>* prevNode = first;
+    for(T i : data) {
+        Node<T>* nextNode = new Node<T>(i);
+        nextNode->setPrev(*prevNode);
+        prevNode->setNext(*nextNode);
+        prevNode = nextNode;
+    }
+}
 
 template<class T> const int& LinkedList<T>::length() {
     return size;

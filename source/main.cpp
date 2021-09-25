@@ -4,13 +4,9 @@
 
 int main() {
     
-    LinkedList<int> list;
-    list.append(20);
-    list.append(50);
-    list.append(40);
-    list.insert(0, 50);
+    LinkedList<int> list = {1, 2, 3, 4, 5};
 
-    std::cout << list.begin() << ", " << list.end() << std::endl;
+    std::cout << list.begin() << ", " << list.end() << ", " << list.length() << std::endl;
 
     return 0;
 }

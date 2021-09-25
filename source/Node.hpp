@@ -2,9 +2,10 @@
 
 template<class T> class Node 
 {
-public:
+private:
     Node();
     Node(T data);
+    Node(T* data);
 
     void setNext(Node<T>& next);
     void setPrev(Node<T>& prev);
@@ -13,15 +14,21 @@ public:
     Node<T>& getPrev();
 
     T& getData();
-private:
+
     Node<T>* next;
     Node<T>* prev;
-    T data;
+    T* data;
+
+    template<class U> friend class LinkedList;
 };
 
 template<class T> Node<T>::Node() { }
 
 template<class T> Node<T>::Node(T data) {
+    this->data = &data;
+}
+
+template<class T> Node<T>::Node(T* data) {
     this->data = data;
 }
 
@@ -41,5 +48,5 @@ template<class T> Node<T>& Node<T>::getPrev() {
 }
 
 template<class T> T& Node<T>::getData() {
-    return data;
+    return *data;
 }
